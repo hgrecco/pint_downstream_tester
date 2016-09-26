@@ -11,3 +11,4 @@ Projects Tested
 
 - pyEQL 0.3.1
   https://github.com/rkingsbury/pyEQL
+- [MetPy](https://github.com/metpy/MetPy)

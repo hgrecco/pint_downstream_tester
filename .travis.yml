@@ -25,13 +25,19 @@ before_install:
   - export ENV_NAME=travis
 
 install:
-  - conda create -c mwcraig --yes -n py34 python=3.4 pip numpy scipy
-  - source activate py34
+  - conda create -c conda-forge --yes -n test python=$TRAVIS_PYTHON_VERSION pip numpy scipy pytest pytest-mpl pytest-runner pyproj
+  - source activate test
   - pip install https://github.com/hgrecco/pint/archive/master.zip
 
 script:
   # pyEQL
   - git clone --depth 1 --branch 0.3.1 https://github.com/rkingsbury/pyEQL
-  - cd pyEQL
+  - pushd pyEQL
   - python -m unittest pyEQL/tests/*
+  # MetPy
+  - popd
+  - git clone --depth 1 https://github.com/metpy/MetPy
+  - cd MetPy
+  - pip install .
+  - python setup.py test --addopts "--mpl"
 
